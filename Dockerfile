@@ -14,11 +14,10 @@ ENV TZ=America/Port_of_Spain
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Install generic depedencies, python, node.js and php 
-RUN apt-get install -y wget gcc g++ libc6-dev make pkg-config git openssl \
+RUN apt-get install -y wget gcc g++ libssl-dev libc6-dev make pkg-config git openssl \
     curl unzip zip \
     python3 python3-pip python3-setuptools \
-    nodejs npm \
-    php php-common php-dev php-pear php-cli php-mbstring
+    php php7.2-dev php-common php-dev php-pear php-cli php-mbstring
 
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
