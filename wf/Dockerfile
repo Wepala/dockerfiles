@@ -15,7 +15,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Install generic depedencies, python, node.js and php 
 RUN apt-get install -y wget gcc g++ libc6-dev make pkg-config git openssl \
-    curl unzip \
+    curl unzip zip \
     python3 python3-pip python3-setuptools \
     nodejs npm \
     php php-common php-dev php-pear php-cli php-mbstring
