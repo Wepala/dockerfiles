@@ -2,7 +2,7 @@ FROM ubuntu
 
 LABEL maintainer="marcus.sanatan@wepala.com"
 
-ENV GOVERSION 1.11
+ENV GOVERSION 1.12
 ENV GOPATH /go
 
 # Update repos so we can install later
@@ -16,8 +16,9 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # Install generic depedencies, python, node.js and php 
 RUN apt-get install -y wget gcc g++ libssl-dev libc6-dev make pkg-config git openssl \
     curl unzip zip \
-    python3 python3-pip python3-setuptools \
-    php php7.2-dev php-common php-dev php-pear php-cli php-mbstring
+    python3 python3-pip python3-setuptools
+RUN apt-get install -y nodejs npm 
+RUN apt-get install -y php php-common php-dev php-pear php-cli php-mbstring
 
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -33,3 +34,4 @@ RUN wget https://dl.google.com/go/go${GOVERSION}.linux-amd64.tar.gz && \
 
 ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
 RUN mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 777 "$GOPATH"
+RUN go get -u github.com/golang/dep/cmd/dep && go get -u github.com/pressly/goose/cmd/goose
