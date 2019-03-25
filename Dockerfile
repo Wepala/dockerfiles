@@ -2,8 +2,12 @@ FROM ubuntu
 
 LABEL maintainer="marcus.sanatan@wepala.com"
 
+# Go variables
 ENV GOVERSION 1.12
 ENV GOPATH /go
+
+# Terraform variables
+ENV TERRAFORM_VERSION 0.11.13
 
 # Update repos so we can install later
 RUN apt-get update
@@ -25,6 +29,11 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 # Install AWS CLI
 RUN pip3 install awscli
+
+# Install terraform
+RUN wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
+    unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/bin && \
+    rm terraform_${TERRAFORM_VERSION}_linux_amd64.zip
 
 # Install go
 RUN wget https://dl.google.com/go/go${GOVERSION}.linux-amd64.tar.gz && \
